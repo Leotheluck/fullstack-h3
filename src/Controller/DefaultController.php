@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+<<<<<<< Updated upstream
 use App\Entity\NotionPage;
 use App\Entity\User;
 use App\Service\NotionService;
@@ -9,11 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+=======
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+>>>>>>> Stashed changes
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
+<<<<<<< Updated upstream
      * @var NotionService
      */
     private $notionService;
@@ -108,5 +114,15 @@ class DefaultController extends AbstractController
     public function error(): Response
     {
         return $this->json('nope.');
+=======
+     * @Route("/default", name="default")
+     */
+    public function index(): Response
+    {
+        return $this->json([
+            'message' => 'Welcome to your new controller!',
+            'path' => 'src/Controller/DefaultController.php',
+        ]);
+>>>>>>> Stashed changes
     }
 }
