@@ -1,0 +1,36 @@
+version: "3"
+services:
+    fullstack-h3-php:
+        image: "pauulog/php-docker-dev:latest"
+        container_name: "fullstack-h3-php"
+        links:
+          - "fullstack-h3-mariadb:mariadb.host"
+        volumes:
+            - "./:/fullstack-h3:rw"
+        working_dir: /fullstack-h3
+        restart: always
+    fullstack-h3-nginx:
+        image: "nginx:1-alpine"
+        container_name: "fullstack-h3-nginx"
+        links:
+          - "fullstack-h3-php:fullstack-h3-php.host"
+        ports:
+          - 8080:80
+        volumes:
+            - "./:/fullstack-h3:rw"
+            - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:r"
+        working_dir: /fullstack-h3
+        restart: always
+    fullstack-h3-mariadb:
+        image: "mariadb:10.6"
+        container_name: "fullstack-h3-mariadb"
+        volumes:
+            - "._mysql_data_dir/:/var/lib/mysql:rw"
+        ports:
+          - 3307:3306
+        environment:
+          - MARIADB_USER
+          - MARIADB_PASSWORD
+          - MARIADB_DATABASE
+          - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+        restart: always
